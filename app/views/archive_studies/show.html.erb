@@ -51,16 +51,17 @@
       <% end %>
 
 
-      <%perms_to_request = ""
-        perms_to_request += "Analyse" unless @perms['analyse']
-        perms_to_request += " and Download" unless @perms['download']
+      <%perms_to_request = []
+        perms_to_request << "Analyse" unless @perms['analyse']
+        perms_to_request << "Download" unless @perms['download']
+        perms_to_request = perms_to_request.join ' and '
         
         unless perms_to_request.blank? %>
         <br>        
         Request <%= link_to perms_to_request, "#{OPENID_SERVER}/users/#{@username}/undertakings/new?datasetID=#{@study.stdy_id}" %> access </a>
       <% end %>
     <% else  %>
-      <%= link_to 'Log in', "#{OPENID_SERVER}/session/new" %> to see your data access permissions.
+      <%= link_to 'Log in', new_user_session_path %> to see your data access permissions.
     <% end %>
 </aside>
 
