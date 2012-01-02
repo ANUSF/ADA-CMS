@@ -13,3 +13,5 @@ solr/data/
 *~
 .rvmrc
 /coverage/
+public/javascripts/ada.js
+public/stylesheets/ada.css
