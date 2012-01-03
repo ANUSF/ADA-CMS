@@ -12,7 +12,7 @@ test:
 
 production: &production
   solr:
-    hostname: web3
+    hostname: web3.mgmt
     port: 8983
     log_level: WARNING
 
