@@ -7,7 +7,8 @@ Ada::Application.configure do
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
-  config.action_controller.perform_caching = true
+  # <2012-01-03 ODF> caching disabled until we fix out-of-data fragment issues
+  config.action_controller.perform_caching = false
 
   # Specifies the header that your server uses for sending files
   # <2011-12-21 ODF> disabling for now, until we got Apache configured correctly
@@ -21,6 +22,9 @@ Ada::Application.configure do
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
+
+  #<2012-01-03 ODF> no SQL logs
+  config.log_level = :info
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
