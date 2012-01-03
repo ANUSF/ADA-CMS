@@ -17,11 +17,11 @@ staging:
 
 staff:
   <<: *deploy
-  database: adacms_staff
+  database: adacms_public
 
 public:
   <<: *deploy
-  database: adacms_staff 
+  database: adacms_public
 
 nesstar:
   adapter: mysql2
