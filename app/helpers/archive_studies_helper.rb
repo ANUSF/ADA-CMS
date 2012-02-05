@@ -52,8 +52,12 @@ module ArchiveStudiesHelper
     if related_material.uri =~ /http/
       related_material.uri
     else
-      uri = related_material.uri.gsub("..", "")
-      "#{NESSTAR_SERVER}#{uri}"
+      uri = related_material.uri.gsub("..", "").sub(/^\//, '')
+      if uri.start_with?('ADAData/')
+        uri
+      else
+        "#{NESSTAR_SERVER}#{uri}"
+      end
     end
   end
   
