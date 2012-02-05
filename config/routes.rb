@@ -78,18 +78,7 @@ Ada::Application.routes.draw do
   inkling_match(:images)
   inkling_match("inkling/feeds")
 
-  match 'ADAData', :to => lambda { |env|
-    req = Rack::Request.new env
-
-    # TODO - put this into a config file 
-    base = File.absolute_path File.join('projects_qfs', 'd10',
-                                        'assda', 'publish')
-
-    path = File.join base, File.absolute_path(File.join '', req.path)
-    if path.starts_with?(File.join base, 'ADAData', '')
-      Rack::File.new(path).call(env)
-    end
-  }
+  match 'ADAData/*rest' => 'ada_data#show'
 
   root :to => "pages#show_by_slug", :as => :root, :defaults => {:slug => "/ada/home"}
 
