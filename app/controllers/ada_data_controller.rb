@@ -2,11 +2,11 @@ class AdaDataController < ApplicationController
 
   def show
     # TODO - put this into a config file
-    base = File.join('', 'projects_qfs', 'd10', 'assda', 'publish')
+    base = File.join('', 'projects_qfs', 'd10', 'assda', 'publish', 'ADAData')
 
     path = File.join base, File.absolute_path(File.join '', params[:rest])
     Rails.logger.error "@@@ #{path}"
-    if path.starts_with?(File.join base, 'ADAData', '')
+    if path.starts_with?(File.join base, '')
       send_file(path,
                 :filename => File.basename(path),
                 :disposition => "attachment",
