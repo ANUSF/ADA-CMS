@@ -1,11 +1,11 @@
 <div class="login">
   <% if current_user.nil? %>
     <h1>USER Log-in </h1>
-    <%= form_for(:user, :url => new_user_session_path,
-                 :html => {:class => 'formtastic', :method => "post"}) do |f| %>
-      <input type="submit" alt="Log In" value="LOG IN" id="enter_button" />
-      <input type="submit" alt="register" value="register" id="register_button"/>
-    <% end %>
+    <div class='formtastic'>
+      <a href="/users/sign_in" id="enter_button">LOG IN</a>
+      <a href=<%= "#{OPENID_SERVER}/users/new" %>
+         id="register_button">Register</a>
+    </div>
   <% else %>
     <form action="<%= logout_path %>" method="get" enctype="multipart/form-data"
 	  name="form2" class="formtastic">

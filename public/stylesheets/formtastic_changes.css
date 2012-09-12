@@ -96,6 +96,7 @@
 	border-radius: 3px;
 	text-transform: uppercase;
 	margin: 5px 5px 5px 0px;
+        text-decoration: none;
 }
 
 /*.formtastic #logout_button {
@@ -148,6 +149,7 @@
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+        text-decoration: none;
 }
 .formtastic #register_button:hover, .formtastic #enter_button:hover, .formtastic #logout_button:hover, .formtastic #search_button:hover, .formtastic #profile_button:hover {
 	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#666), to(#000));
