@@ -25,7 +25,7 @@ namespace :integrate do
   end
   
   task :crime => :environment do
-    Integrations::Workflow.integrate("Catalog37", Archive.crime)
+    Integrations::Workflow.integrate("crime-and-justice", Archive.crime)
   end
 end
 
