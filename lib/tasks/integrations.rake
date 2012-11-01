@@ -60,22 +60,8 @@ namespace :reset do
 
   def do_reset(catalog_name, archive)
     flag(archive)
-    Archive.transaction do
-      destroy_catalogs(archive)
-      Integrations::Workflow.integrate(catalog_name, archive)
-    end
+    Integrations::Workflow.integrate(catalog_name, archive, true)
     unflag(archive)
-  end
-
-  def destroy_catalogs(archive)
-    archive.archive_catalogs.each do |c| 
-      c.archive_catalog_studies.each do |s|
-        s.destroy
-      end
-      # c.reload if Rails.env == "development"
-      c.path.delete
-      c.delete #delete statement needed - nested set keeps sibling relations
-    end
   end
 
   def flag(archive)

@@ -2,11 +2,24 @@
 
 class Integrations::Workflow
   
-  def self.integrate(catalog_name, archive)
+  def self.integrate(catalog_name, archive, reset = false)
     log = Inkling::Log.create!(:category => "integration", :text => "#{archive.name} integration began.")
     statement = Nesstar::StatementEJB.find_by_objectId(catalog_name)
 
-    Integrations::ArchiveCatalogs.create_or_update(statement, archive)
+    Archive.transaction do
+      if reset
+        # destroy all associated catalogs for this archive
+        archive.archive_catalogs.each do |c| 
+          c.archive_catalog_studies.each do |s|
+            s.destroy
+          end
+          c.path.delete
+          c.delete #delete statement needed - nested set keeps sibling relations
+        end
+      end
+
+      Integrations::ArchiveCatalogs.create_or_update(statement, archive)
+    end
 
     study_ids = archive.studies.collect {|s| s.id}
     study_ids = study_ids.join ","
