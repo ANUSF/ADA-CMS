@@ -31,52 +31,38 @@ end
 
 namespace :reset do
   task :indigenous => :environment do
-    flag(Archive.indigenous)
-    destroy_catalogs(Archive.indigenous)
-    Rake::Task["integrate:indigenous"].execute
-    unflag(Archive.indigenous)
+    do_reset("indigenous", Archive.indigenous)
   end
 
   task :social_science => :environment do
-    flag(Archive.social_science)
-    destroy_catalogs(Archive.social_science)
-    Rake::Task["integrate:social_science"].execute
-    unflag(Archive.social_science)
+    do_reset("social-science", Archive.social_science)
   end
 
   task :historical => :environment do
-    flag(Archive.historical)
-    destroy_catalogs(Archive.historical)
-    Rake::Task["integrate:historical"].execute
-    unflag(Archive.historical)
+    do_reset("historical", Archive.historical)
   end
 
   task :longitudinal => :environment do
-    flag(Archive.longitudinal)
-    destroy_catalogs(Archive.longitudinal)
-    Rake::Task["integrate:longitudinal"].execute
-    unflag(Archive.longitudinal)
+    do_reset("longitudinal", Archive.longitudinal)
   end
   
   task :qualitative => :environment do
-    flag(Archive.qualitative)
-    destroy_catalogs(Archive.qualitative)
-    Rake::Task["integrate:qualitative"].execute
-    unflag(Archive.qualitative)
+    do_reset("qualitative", Archive.qualitative)
   end
   
   task :international => :environment do
-    flag(Archive.international)
-    destroy_catalogs(Archive.international)
-    Rake::Task["integrate:international"].execute
-    unflag(Archive.international)
+    do_reset("international", Archive.international)
   end
   
   task :crime => :environment do
-    flag(Archive.crime)
-    destroy_catalogs(Archive.crime)
-    Rake::Task["integrate:crime"].execute
-    unflag(Archive.crime)
+    do_reset("crime-and-justice", Archive.crime)
+  end
+
+  def do_reset(catalog_name, archive)
+    flag(archive)
+    destroy_catalogs(archive)
+    Integrations::Workflow.integrate(catalog_name, archive)
+    unflag(archive)
   end
 
   def destroy_catalogs(archive)
