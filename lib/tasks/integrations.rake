@@ -60,8 +60,10 @@ namespace :reset do
 
   def do_reset(catalog_name, archive)
     flag(archive)
-    destroy_catalogs(archive)
-    Integrations::Workflow.integrate(catalog_name, archive)
+    Archive.transaction do
+      destroy_catalogs(archive)
+      Integrations::Workflow.integrate(catalog_name, archive)
+    end
     unflag(archive)
   end
 
