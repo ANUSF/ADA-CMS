@@ -9,11 +9,14 @@ class ArchiveStudy < ActiveRecord::Base
   belongs_to :study
   has_many :archive_study_integrations
   belongs_to :archive
+  has_many :archive_catalog_studies, :dependent => :destroy
 
   validates_presence_of :archive
   validates_presence_of :study
   validate :unique_archive_study_combination
   
+  before_destroy { path.destroy }
+
   def self.create_or_update_from_nesstar(study, archive)
     archive_study = find_by_study_id_and_archive_id(study.id, archive.id)
     

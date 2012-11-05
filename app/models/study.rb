@@ -2,10 +2,10 @@
 
 class Study < ActiveRecord::Base  
   
-  has_many :related_materials
-  has_many :archive_studies
+  has_many :related_materials, :dependent => :destroy
+  has_many :archive_studies, :dependent => :destroy
   has_many :archives, :through => :archive_studies
-  has_many :variables 
+  has_many :variables, :dependent => :destroy
   
   validates_uniqueness_of :stdy_id
   validates_presence_of :stdy_id
