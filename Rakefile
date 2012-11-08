@@ -67,7 +67,8 @@ end
 task :reindex => :environment do
   extend TimeInWords
   log = Inkling::Log.create!(:category => "search-index", :text => "Solr began reindexing")
-  system("rake sunspot:reindex")
+  #system("rake sunspot:reindex")
+  Rake::Task['sunspot.reindex'].execute
   duration = time_in_words(Time.now, log.created_at)
   Inkling::Log.create!(:category => "search-index", :text => "Solr finished index after #{duration}")
 end
