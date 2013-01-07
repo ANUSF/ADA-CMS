@@ -3,6 +3,9 @@
   <h2> <%= link_to image_tag("icons/feed.png", :align => "top"), "#{feed.urn}?format=atom" %> Recent News </h2>
  
   <div class="news">
-   <%= render :partial => "archive_news_item", :collection => @archive_news %>
+    <%= render :partial => "archive_news_item", :object => @archive_news.first %>
+    <%= render :partial => "archive_news_item_brief",
+               :collection => @archive_news.drop(1) %>
+    <p />
   </div>
 <% end %>
