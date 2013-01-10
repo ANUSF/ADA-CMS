@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 source :gemcutter
 
-gem 'rails', '3.0.10'
+gem 'rails', '3.0.19'
 
 gem "pg"
 gem "mysql2"
