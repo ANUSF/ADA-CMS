@@ -22,19 +22,16 @@ module ArchiveStudiesHelper
   end
 
   def selected_tab_if(format_names, format = "study")
-    css_class = nil
-    css_class = "class='selected-tab'" if format_names.include?(format) or (format.nil? and format_names.include?("study")) 
-    css_class
+    if format_names.include?(format or "study")
+      "class='selected-tab'".html_safe
+    end
   end
     
   def conceal_unless(format_names, format = "title")
-    #this if shouldn't be necessary, appears to be a bug in helpers using default values in method args
-    if format.nil?
-      format = "study"
+    unless format_names.include?(format or "study")
+      "class = 'concealed'".html_safe
     end
-    
-    "class = 'concealed'" unless format_names.include?(format)
-  end  
+  end
   
   def variable_href(variable, archive_study)          
     "#{NESSTAR_SERVER}/webview/index.jsp?object=#{NESSTAR_SERVER}:80/obj/fVariable/#{variable.stdy_id}_#{variable.var_id}&cms_url=#{archive_study.urn}"
