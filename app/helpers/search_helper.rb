@@ -2,29 +2,29 @@ module SearchHelper
   
   def highlight_excerpt(highlight)
     return if highlight.nil?
-    highlights = highlight.format { |word| "<span class=\"highlight\">#{word}</span>".html_safe}	
+    highlights = highlight.format { |word|
+      "<span class=\"highlight\">#{word}</span>".html_safe
+    }
     highlights << "..."
     highlights.html_safe	
   end
     
   def selected_tab_if(format_names, format = "title")
-    css_class = nil
-    css_class = "class='selected-tab'" if format_names.include?(format) or (format.nil? and format_names.include?("title")) 
-    css_class
+    if format_names.include?(format or "title")
+      "class='selected-tab'".html_safe
+    end
   end
   
   def selected_menu_if(format_names, format = "title")
-    css_class = nil
-    css_class = "class = 'selected-menu-item'" if format_names.include?(format) or (format.nil? and format_names.include?("title")) 
-    css_class
+    if format_names.include?(format or "title")
+      "class = 'selected-menu-item'".html_safe
+    end
   end
   
   def conceal_unless(format_names, format = "title")
-    #this if shouldn't be necessary, appears to be a bug in helpers using default values in method args
-    if format.nil?
-      format = "title"
+    unless format_names.include?(format or "title")
+      "class = 'concealed'".html_safe
     end
-    "class = 'concealed'" unless format_names.include?(format)
   end
   
   def search_abbr(params, remove_filters = false)
@@ -82,9 +82,9 @@ module SearchHelper
   
   def multi_accordion_on_archive(div_id, current_archive_idx)
     if current_archive_idx 
-      "$('##{div_id}').multiAccordion({active: [#{current_archive_idx}]});"
+      "$('##{div_id}').multiAccordion({active: [#{current_archive_idx}]});".html_safe
     else
-      "$('##{div_id}').multiAccordion({active: false });"       	
+      "$('##{div_id}').multiAccordion({active: false });".html_safe	
     end
   end
 
