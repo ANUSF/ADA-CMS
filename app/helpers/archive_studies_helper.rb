@@ -22,13 +22,13 @@ module ArchiveStudiesHelper
   end
 
   def selected_tab_if(format_names, format = "study")
-    if format_names.include?(format or "study")
+    if format_names.include?(format || "study")
       "class='selected-tab'".html_safe
     end
   end
     
   def conceal_unless(format_names, format = "title")
-    unless format_names.include?(format or "study")
+    unless format_names.include?(format || "study")
       "class = 'concealed'".html_safe
     end
   end

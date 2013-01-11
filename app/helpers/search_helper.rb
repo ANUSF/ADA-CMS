@@ -10,19 +10,19 @@ module SearchHelper
   end
     
   def selected_tab_if(format_names, format = "title")
-    if format_names.include?(format or "title")
+    if format_names.include?(format || "title")
       "class='selected-tab'".html_safe
     end
   end
   
   def selected_menu_if(format_names, format = "title")
-    if format_names.include?(format or "title")
+    if format_names.include?(format || "title")
       "class = 'selected-menu-item'".html_safe
     end
   end
   
   def conceal_unless(format_names, format = "title")
-    unless format_names.include?(format or "title")
+    unless format_names.include?(format || "title")
       "class = 'concealed'".html_safe
     end
   end
