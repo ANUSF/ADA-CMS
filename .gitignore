@@ -10,6 +10,7 @@ log
 tmp
 *.swp
 solr/data/
+solr/pids/
 *~
 .rvmrc
 /coverage/

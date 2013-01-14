@@ -28,7 +28,7 @@ gem 'capistrano-ext'
 gem 'will_paginate', ">=3.0pre"
 gem 'paperclip', ">=2.3"
 gem 'ratom'
-gem 'sunspot_rails', '>=1.2.1'
+gem 'sunspot_rails', '~> 1.3.3'
 gem 'mongrel', '~> 1.2.0.pre2'
 gem 'httparty'
 gem 'vestal_versions', :git => 'git://github.com/adamcooper/vestal_versions'
@@ -39,6 +39,7 @@ group :staff, :public do
 end
 
 group :development, :test do
+	gem 'sunspot_solr', '~> 1.3.3'
 	gem 'ruby-debug-base19', "0.11.25"
 	gem 'ruby-debug19'
 	gem "mocha"
