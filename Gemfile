@@ -38,8 +38,11 @@ group :staff, :public do
 	gem 'newrelic_rpm'
 end
 
-group :development, :test do
+group :development, :devs, :test do
 	gem 'sunspot_solr', '~> 1.3.3'
+end
+
+group :development, :test do
 	gem 'ruby-debug-base19', "0.11.25"
 	gem 'ruby-debug19'
 	gem "mocha"
