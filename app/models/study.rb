@@ -53,13 +53,17 @@ class Study < ActiveRecord::Base
       converted_keys[k.underscore.to_sym] = v
     end
 
+    updated = true
+
     if study.nil?
       study = Study.create!(converted_keys)
     elsif converted_keys[:creation_date] > study.updated_at
       study.update_attributes(converted_keys)
+    else
+      updated = false
     end
     
-    study
+    [study, updated]
   end  
   
   def title

@@ -7,13 +7,13 @@ class Integrations::ArchiveCatalogs
     if statement.objectType == "fCatalog"
       create_or_update_catalog(statement, archive)
     elsif statement.objectType == "fStudy"
-      study = create_or_update_study(statement, archive)   
+      study, updated = create_or_update_study(statement, archive)   
       
-      if statement.creationDate > study.updated_at or study.related_materials.count == 0
+      if updated or study.related_materials.count == 0
         Integrations::RelatedMaterials.create_or_update_by_study(study)     
       end
 
-      if statement.creationDate > study.updated_at or study.variables.count == 0
+      if updated or study.variables.count == 0
         Integrations::Variables.create_or_update_by_study(study)        
       end
     end
