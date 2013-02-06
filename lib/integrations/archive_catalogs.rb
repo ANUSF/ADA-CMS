@@ -38,12 +38,12 @@ class Integrations::ArchiveCatalogs
   
   def self.create_or_update_study(statement, archive)
     studyejb = Nesstar::StudyEJB.find_by_stdyID(statement.objectId)
-    study = Study.create_or_update_from_nesstar(studyejb.attributes)
+    study, updated = Study.create_or_update_from_nesstar(studyejb.attributes)
     archive_study = ArchiveStudy.create_or_update_from_nesstar(study, archive)
     #plus, we create one for the ADA context, when searching
     archive_study = ArchiveStudy.create_or_update_from_nesstar(study, Archive.ada)
     parent_catalog = ArchiveCatalog.find_by_title(statement.subjectId)    
     ArchiveCatalogStudy.create_or_update_from_nesstar(archive_study, parent_catalog, statement.predicateIndex)
-    study
+    [study, updated]
   end
 end
