@@ -8,92 +8,22 @@
 <table id="study-info-table" border=0>
   <thead>
     <tr>
-      <th>Study Information</th>
+      <th>Study Overview</th>
       <th>Content</th>
     </tr>
   </thead>
   <tbody>
-    <%= study_field_table_row('title', study, fields) %>
-    <%= study_field_table_row('series_name', study, fields) %>
-    <%= study_field_table_row('stdy_auth_entity', study, fields) %>
-    <%= study_field_table_row('stdy_id', study, fields) %>    
-    <%= study_field_table_row('abstract_text', study, fields) %>   
-    <%= study_field_table_row('doc_prod_date', study, fields) %>        
-    <%= study_field_table_row('stdy_bibl_cit', study, fields) %>   
-    <%= study_field_table_row('stdy_copyright', study, fields) %>   
-    <%= study_field_table_row('stdy_contributor', study, fields) %>   
-    <%= study_field_table_row('stdy_contact', study, fields) %>   
-    <%= study_field_table_row('stdy_contact_affiliation', study, fields) %>   
-  </tbody>
-</table>
-
-<table id="study-scope-table" border=0>
-  <thead>
-    <tr>
-      <th>Study Scope</th>
-      <th>Content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= study_field_table_row('subcat', study, fields) %>
-    <%= study_field_table_row('keywords', study, fields) %>
-    <%= study_field_table_row('universe', study, fields) %>
-
-    <% if fields.has_key?("collection_start") or fields.has_key?("collection_end") %>
-     <tr>
-       <td valign=top>Date of Collection</td>
-      <td>
-          <table>
-            <tr>
-              <td>
-                <%= human_readable('collection_end') %>: <%= study.collection_start %> <% fields.delete('collection_end') %>
-              </td>
-              <td>
-                <%= human_readable('collection_start') %>: <%= study.collection_start %> <% fields.delete('collection_start') %>
-                </td>              
-            </tr> 
-          </table>         
-       </td>
-     </tr>
+    <% %w{title
+          series_name
+          stdy_auth_entity
+          stdy_id
+          abstract_text
+          stdy_bibl_cit
+          stdy_copyright
+          stdy_version
+          creation_date    }.each do |fld| %>
+      <%= study_field_table_row(fld, study, fields) %>
     <% end %>
-
-    <% if fields.has_key?("period_start") or fields.has_key?("period_end") %>
-     <tr>
-       <td valign=top>Time Period</td>
-      <td>
-          <table>
-            <tr>
-              <td>
-                <%= human_readable('period_end') %>: <%= study.collection_start %> <% fields.delete('period_end') %>
-              </td>
-              <td>
-                <%= human_readable('period_start') %>: <%= study.collection_start %> <% fields.delete('period_start') %>
-                </td>              
-            </tr> 
-          </table>         
-       </td>
-     </tr>
-    <% end %>
-
-
-    <%= study_field_table_row('geographical_cover', study, fields) %>    
-    <%= study_field_table_row('geographical_unit', study, fields) %>   
-  </tbody>
-</table>
-
-<table id="study-methodology-table" border=0>
-  <thead>
-    <tr>
-      <th>Methodology</th>
-      <th>Content</th>
-    </tr>
-  </thead>
-  <tbody>
-  	<%= study_field_table_row('sampling', study, fields) %>
-  	<%= study_field_table_row('collection_end', study, fields)%>
-  	<%= study_field_table_row('data_kind', study, fields) %>
-  	<%= study_field_table_row('response', study, fields) %>
-  	<%= study_field_table_row('method_notes', study, fields) %>
   </tbody>
 </table>
 
@@ -106,7 +36,111 @@
   </thead>
   <tbody>
     <%= study_field_table_row('access_conditions', study, fields) %>
+  </tbody>
+</table>
 
+<table id="study-biblio-table" border=0>
+  <thead>
+    <tr>
+      <th>Bibliographical Details</th>
+      <th>Content</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% %w{stdy_producer
+          stdy_producer_abbr
+          data_collector
+          stdy_contributor
+          stdy_contact
+          stdy_contact_affiliation
+          stdy_contact_email       }.each do |fld| %>
+      <%= study_field_table_row(fld, study, fields) %>   
+    <% end %>
+  </tbody>
+</table>
+
+<table id="study-scope-table" border=0>
+  <thead>
+    <tr>
+      <th>Study Scope</th>
+      <th>Content</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= study_field_table_row('keywords', study, fields) %>
+    <%= study_field_table_row('subcat', study, fields) %>
+    <%= study_field_table_row('time_period', study, fields) %>
+
+    <% unless fields["period_start"].blank? and fields["period_end"].blank? %>
+     <tr>
+       <td valign=top>Time Period</td>
+      <td>
+          <table>
+            <tr>
+              <td>
+                <%= human_readable('period_start') %>:
+                <%= study.period_start %>
+              </td>
+              <td>
+                <%= human_readable('period_end') %>:
+                <%= study.period_end %>
+              </td>              
+            </tr> 
+          </table>         
+       </td>
+     </tr>
+    <% end %>
+
+    <% unless fields["collection_start"].blank? and
+       fields["collection_end"].blank? %>
+     <tr>
+       <td valign=top>Date of Collection</td>
+      <td>
+          <table>
+            <tr>
+              <td>
+                <%= human_readable('collection_start') %>:
+                <%= study.collection_start %>
+              </td>              
+              <td>
+                <%= human_readable('collection_end') %>:
+                <%= study.collection_end %>
+              </td>              
+            </tr> 
+          </table>         
+       </td>
+     </tr>
+    <% end %>
+
+    <% %w{nation
+          geographical_cover
+          geographical_unit
+          language
+          analytic_unit
+          universe
+          data_kind           }.each do |fld| %>
+      <%= study_field_table_row(fld, study, fields) %>   
+    <% end %>
+  </tbody>
+</table>
+
+<table id="study-methodology-table" border=0>
+  <thead>
+    <tr>
+      <th>Methodology</th>
+      <th>Content</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% %w{time_meth
+          sampling
+          research_instr
+          coll_mode
+          stdy_data_coll_freq
+          response
+          weight              }.each do |fld| %>
+      <%= study_field_table_row(fld, study, fields) %>   
+    <% end %>
   </tbody>
 </table>
 
@@ -118,14 +152,20 @@
     </tr>
   </thead>
   <tbody>
-    <%= study_field_table_row('stdy_depositor', study, fields) %>
-    <%= study_field_table_row('stdy_dep_date', study, fields)%>
-    <%= study_field_table_row('stdy_version', study, fields) %>
-    <%= study_field_table_row('response', study, fields) %>
+    <% %w{stdy_status
+          stdy_dep_date
+          stdy_depositor
+          distribution_date
+          stdy_prod_date
+          stdy_version_date
+          stdy_version_notes
+          stdy_version_responsibility}.each do |fld| %>
+      <%= study_field_table_row(fld, study, fields) %>   
+    <% end %>
   </tbody>
 </table>
  
-<table id="study-deposit-info-table" border=0>
+<table id="study-other-info-table" border=0>
   <thead>
     <tr>
       <th>Other</th>
@@ -133,8 +173,12 @@
     </tr>
   </thead>
   <tbody>
-  <% for key in fields.keys %>
-    <%= study_field_table_row(key, study, fields) %>
-  <% end %>
+    <% %w{doc_bibl_cit
+          doc_copyright
+          doc_producer
+          doc_prod_date  }.each do |fld| %>
+      <%= study_field_table_row(fld, study, fields) %>   
+    <% end %>
+    </tr>
   </tbody>
 </table>

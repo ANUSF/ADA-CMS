@@ -16,8 +16,8 @@ beginning_date:
 bibliographic_citation: Bibliographic Citation
 category:
 coll_mode: Mode of Data Collection
-collection_end: Start date - Data Collection
-collection_start: End date - Data Collection
+collection_end: End date - Data Collection
+collection_start: Start date - Data Collection
 comment: Comment
 concept:
 conforms_to:
@@ -26,7 +26,7 @@ copyright: Copyright
 coverage: 
 coverage_temporal_date_capture_period_ends:
 created_at: Update Creation Date
-creation_date: Study Creation Date
+creation_date: Version Release Date
 creator:
 current_location:
 custodian:
@@ -159,8 +159,8 @@ notes:
 origin: Original Archive
 original_format: Original Format
 pdf_file: PDF
-period_end: Time Period - Start
-period_start: Time Period - End
+period_end: Time Period - End
+period_start: Time Period - Start
 personal_data_aquisition_purpose:
 position: Variable Position
 post_question_text: Post-question Text
