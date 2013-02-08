@@ -4,7 +4,6 @@
   fields.delete("updated_at")   
   %>
 
-
 <table id="study-info-table" border=0>
   <thead>
     <tr>
@@ -22,7 +21,7 @@
           stdy_copyright
           stdy_version
           creation_date    }.each do |fld| %>
-      <%= study_field_table_row(fld, study, fields) %>
+      <%= study_field_table_row(fld, fields) %>
     <% end %>
   </tbody>
 </table>
@@ -35,7 +34,7 @@
     </tr>
   </thead>
   <tbody>
-    <%= study_field_table_row('access_conditions', study, fields) %>
+    <%= study_field_table_row('access_conditions', fields) %>
   </tbody>
 </table>
 
@@ -47,14 +46,20 @@
     </tr>
   </thead>
   <tbody>
-    <% %w{stdy_producer
-          stdy_producer_abbr
-          data_collector
+    <% unless fields['stdy_producer'].blank? and
+       fields['stdy_producer_abbr'].blank? %>
+      <tr>
+        <td valign=top><%= human_readable('stdy_producer') %></td>
+        <td><%= producer_string(fields) %></td>
+      </tr>
+    <% end %>
+
+    <% %w{data_collector
           stdy_contributor
           stdy_contact
           stdy_contact_affiliation
           stdy_contact_email       }.each do |fld| %>
-      <%= study_field_table_row(fld, study, fields) %>   
+      <%= study_field_table_row(fld, fields) %>
     <% end %>
   </tbody>
 </table>
@@ -67,49 +72,28 @@
     </tr>
   </thead>
   <tbody>
-    <%= study_field_table_row('keywords', study, fields) %>
-    <%= study_field_table_row('subcat', study, fields) %>
-    <%= study_field_table_row('time_period', study, fields) %>
+    <%= keyword_rows('keywords', fields) %>
+    <%= keyword_rows('subcat', fields) %>
+    <%= study_field_table_row('time_period', fields) %>
 
-    <% unless fields["period_start"].blank? and fields["period_end"].blank? %>
-     <tr>
-       <td valign=top>Time Period</td>
-      <td>
-          <table>
-            <tr>
-              <td>
-                <%= human_readable('period_start') %>:
-                <%= study.period_start %>
-              </td>
-              <td>
-                <%= human_readable('period_end') %>:
-                <%= study.period_end %>
-              </td>              
-            </tr> 
-          </table>         
-       </td>
-     </tr>
+    <% unless fields["period_start"].blank? and
+       fields["period_end"].blank? %>
+      <tr>
+        <td valign=top>Time Period</td>
+        <td>
+          <%= time_range_string(period_start', period_end', fields) %>
+        </td>
+      </tr>
     <% end %>
 
     <% unless fields["collection_start"].blank? and
        fields["collection_end"].blank? %>
-     <tr>
-       <td valign=top>Date of Collection</td>
-      <td>
-          <table>
-            <tr>
-              <td>
-                <%= human_readable('collection_start') %>:
-                <%= study.collection_start %>
-              </td>              
-              <td>
-                <%= human_readable('collection_end') %>:
-                <%= study.collection_end %>
-              </td>              
-            </tr> 
-          </table>         
-       </td>
-     </tr>
+      <tr>
+        <td valign=top>Date of Collection</td>
+        <td>
+          <%= time_range_string('collection_start', 'collection_end', fields) %>
+        </td>
+      </tr>
     <% end %>
 
     <% %w{nation
@@ -119,7 +103,7 @@
           analytic_unit
           universe
           data_kind           }.each do |fld| %>
-      <%= study_field_table_row(fld, study, fields) %>   
+      <%= study_field_table_row(fld, fields) %>   
     <% end %>
   </tbody>
 </table>
@@ -139,7 +123,7 @@
           stdy_data_coll_freq
           response
           weight              }.each do |fld| %>
-      <%= study_field_table_row(fld, study, fields) %>   
+      <%= study_field_table_row(fld, fields) %>   
     <% end %>
   </tbody>
 </table>
@@ -160,7 +144,7 @@
           stdy_version_date
           stdy_version_notes
           stdy_version_responsibility}.each do |fld| %>
-      <%= study_field_table_row(fld, study, fields) %>   
+      <%= study_field_table_row(fld, fields) %>   
     <% end %>
   </tbody>
 </table>
@@ -177,7 +161,7 @@
           doc_copyright
           doc_producer
           doc_prod_date  }.each do |fld| %>
-      <%= study_field_table_row(fld, study, fields) %>   
+      <%= study_field_table_row(fld, fields) %>   
     <% end %>
     </tr>
   </tbody>

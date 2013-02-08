@@ -1,6 +1,6 @@
 module ArchiveStudiesHelper
   
-  def study_field_table_row(key, study, fields)
+  def study_field_table_row(key, fields)
     if fields.has_key?(key) and not fields[key].blank?
       row = "<tr class='#{cycle('standard', 'alt')}'>\n".html_safe
       row << "<td valign='top'>".html_safe
@@ -9,11 +9,55 @@ module ArchiveStudiesHelper
       row << fields[key].to_s
       row << "</td>\n</tr>".html_safe
       
-     fields.delete(key)
-     row
+      row
    end
   end
   
+  def keyword_rows(key, fields)
+    entries = (fields[key].to_s || '').split(';').map(&:strip)
+
+    if entries.size() > 0
+      res = "".html_safe
+
+      res << "<tr class='#{cycle('standard', 'alt')}'>\n".html_safe
+      res << "<td valign='top'>".html_safe
+      res << (human_readable(key) || key)
+      res << "</td><td valign='top'>".html_safe
+      res << entries.first
+      res << "</td>\n</tr>".html_safe
+      
+      entries.drop(1).each do |s|
+        res << "<tr class='#{cycle('standard', 'alt')}'>\n".html_safe
+        res << "<td valign='top'>".html_safe
+        res << "</td><td valign='top'>".html_safe
+        res << s
+        res << "</td>\n</tr>".html_safe
+      end
+
+      res
+    end
+  end
+  
+  def producer_string(fields)
+    if fields['stdy_producer'].blank?
+      fields['stdy_producer_abbr']
+    elsif fields['stdy_producer_abbr'].blank?
+      fields['stdy_producer']
+    else
+      "#{fields['stdy_producer']} [#{fields['stdy_producer_abbr']}]"
+    end
+  end
+
+  def time_range_string(key_start, key_end, fields)
+    if fields[key_end].blank?
+      fields[key_start]
+    elsif fields[key_start].blank?
+      field[key_end]
+    else
+      "Start date: #{fields[key_start]}; End date: #{fields[key_end]}"
+    end
+  end
+
   def variable_field(field)
     unless field[1].blank?
       key = (human_readable(field[0]) || field[0])
