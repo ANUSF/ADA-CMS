@@ -477,6 +477,10 @@ ul#sub-menu {
 	border-top: 1px solid #999;
 }
 
+#study table.study-subtable {
+	border-top: none;
+}
+
 #study-table, #related-material-table {
 	width: 100%;
 	border-collapse: collapse;
@@ -513,6 +517,10 @@ ul#sub-menu {
 	padding-right: 10px;
 	padding-bottom: 5px;
 	padding-left: 5px;
+}
+
+#study td.study-subtable-container {
+	padding: 0;
 }
 
 #search-results-ext td, #browse-results-ext td {

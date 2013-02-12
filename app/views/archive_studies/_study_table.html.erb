@@ -54,13 +54,13 @@
       </tr>
     <% end %>
 
-    <% %w{data_collector
-          stdy_contributor
-          stdy_contact
-          stdy_contact_affiliation
-          stdy_contact_email       }.each do |fld| %>
+    <% %w{data_collector stdy_contributor}.each do |fld| %>
       <%= study_field_table_row(fld, fields) %>
     <% end %>
+
+    <%= subtable(
+        %w{stdy_contact stdy_contact_affiliation stdy_contact_email},
+        fields) %>
   </tbody>
 </table>
 

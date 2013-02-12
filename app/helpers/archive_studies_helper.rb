@@ -37,6 +37,49 @@ module ArchiveStudiesHelper
       res
     end
   end
+
+  def subtable(keys, fields)
+    entries = keys.map { |key| (fields[key].to_s || '').split(';').map(&:strip) }
+    n = entries.map(&:size).max
+
+    if keys.size() <= 1
+      keyword_rows(keys.first, field)
+    elsif n > 0
+      res = "".html_safe
+
+      res << "<tr>\n".html_safe
+      res << "<td valign='top'>".html_safe
+      res << (human_readable(keys.first) || keys.first)
+      res << "</td>".html_safe
+      res << "<td valign='top' class='study-subtable-container'>".html_safe
+      res << "<table class='study-subtable'>\n".html_safe
+
+      res << "<thead>\n<tr>\n".html_safe
+      res << "<th></th>\n".html_safe
+      keys.drop(1).each do |key|
+        res << "<th>".html_safe
+        res << (human_readable(key) || key)
+        res << "</th>\n".html_safe
+      end
+      res << "</tr>\n</thead>\n<tbody>\n".html_safe
+
+      0.upto(n-1).each do |i|
+        res << "<tr class='#{cycle('standard', 'alt')}'>\n".html_safe
+
+        0.upto(keys.size()-1) do |j|
+          res << "<td valign='top'>".html_safe
+          res << entries[i][j] || ""
+          res << "</td>\n".html_safe
+        end
+
+        res << "</tr>\n".html_safe
+      end
+
+      res << "</tbody>\n</table>\n".html_safe
+      
+      res
+    end
+  end
   
   def producer_string(fields)
     if fields['stdy_producer'].blank?
