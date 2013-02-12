@@ -68,7 +68,7 @@ module ArchiveStudiesHelper
 
         0.upto(keys.size()-1) do |j|
           res << "<td valign='top'>".html_safe
-          res << entries[i][j] || ""
+          res << entries[j][i] || ""
           res << "</td>\n".html_safe
         end
 
