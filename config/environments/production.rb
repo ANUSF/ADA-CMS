@@ -10,6 +10,15 @@ Ada::Application.configure do
   # <2012-01-03 ODF> caching disabled until we fix out-of-data fragment issues
   config.action_controller.perform_caching = false
 
+  # Compress JavaScript and CSS
+  config.assets.compress = true
+
+  # Don't fallback to assets pipeline
+  config.assets.compile = false
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
+
   # Specifies the header that your server uses for sending files
   # <2011-12-21 ODF> disabling for now, until we got Apache configured correctly
   #config.action_dispatch.x_sendfile_header = "X-Sendfile"

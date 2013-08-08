@@ -1,10 +1,20 @@
 source 'http://rubygems.org'
-source :gemcutter
+#source :gemcutter
 
-gem 'rails', '3.0.20'
+gem 'rails', '3.1.10'
 
 gem "pg"
 gem "mysql2"
+
+# Needed for the new asset pipeline
+group :assets do
+  gem 'sass-rails',   "~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
+
+# jQuery is the default JavaScript library in Rails 3.1+
+gem 'jquery-rails'
 
 gem 'inkling', :git => "git://github.com/tfw/inkling.git", :tag => "ada_release"
 #gem 'inkling', :path => "/Users/nicholas/code/src/tfw/inkling"
@@ -23,7 +33,6 @@ gem 'formtastic'
 gem 'ckeditor' , :git => 'git://github.com/cjheath/rails-ckeditor.git', :branch => 'rails3'
 gem 'yaml_db'
 gem 'nokogiri'
-gem 'jquery-rails', '>= 0.2.6' 
 gem 'capistrano-ext'
 gem 'will_paginate', ">=3.0pre"
 gem 'paperclip', ">=2.3"
